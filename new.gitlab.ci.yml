@@ -1,0 +1,86 @@
+before_script:
+  - export ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
+  - export ARM_CLIENT_ID=$ARM_CLIENT_ID
+  - export ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET
+  - export ARM_TENANT_ID=$ARM_TENANT_ID
+
+image:
+  name: hashicorp/terraform:light
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+
+variables:
+  PLAN: plan.tfplan
+
+cache:
+  key: "$CI_COMMIT_SHA"
+  paths:
+    - .terraform
+
+.gitlab-tf-backend: &gitlab-tf-backend
+  - terraform --version
+  - terraform init 
+
+stages:
+  - validate
+  - plan
+  - apply
+  - deploy
+  - destroy
+
+validate:
+  stage: validate
+  script:
+    - *gitlab-tf-backend
+    - terraform validate
+  only:
+    - branches
+    - merge_requests
+
+merge review:
+  stage: plan
+  script:
+    - *gitlab-tf-backend
+    - terraform plan -out=$PLAN
+  artifacts:
+    expire_in: 1 week
+    name: plan
+  only:
+    - merge_requests
+
+plan production:
+  stage: plan
+  script:
+    - *gitlab-tf-backend
+    - terraform plan
+  only:
+    - master
+  resource_group: production
+
+apply:
+  stage: apply
+  script:
+    - *gitlab-tf-backend
+    - terraform apply -auto-approve
+  dependencies:
+    - plan production
+  artifacts:
+    expire_in: 1 week
+    name: $CI_COMMIT_REF_SLUG
+  only:
+    - master
+  resource_group: production
+
+destroy:
+  stage: destroy
+  needs: []
+  script:
+    - *gitlab-tf-backend
+    - terraform destroy -auto-approve
+  when: manual
+  only:
+    - master  
+  environment:
+    name: production
+    action: stop
