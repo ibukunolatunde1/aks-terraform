@@ -40,11 +40,7 @@ stages:
           inputs:
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
             targetType: 'inline'
-            script: terraform init \
-                      -backend-config="storage_account_name=deimos01storage" \
-                      -backend-config="container_name=tfstatefiles" \
-                      -backend-config="key=terraform.tfstate" \
-                      -backend-config="access_key=$TF_STATE_ACCESS_KEY"  
+            script: terraform init -backend-config="storage_account_name=deimos01storage" -backend-config="container_name=tfstatefiles" -backend-config="key=terraform.tfstate" -backend-config="access_key=$TF_STATE_ACCESS_KEY"  
         # - task: TerraformCLI@0
         #   displayName: Terraform Init
         #   inputs:
