@@ -21,21 +21,20 @@ stages:
             targetPath: '$(System.DefaultWorkingDirectory)/terraform'
             artifact: 'terraform-manifest-out'
             publishLocation: pipeline
-        - task: TerraformInstaller@0
+        - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
           displayName: Terraform Install
           inputs:
-            terraformVersion: 'latest'
+            terraformVersion: '0.13.5'
         - task: TerraformCLI@0
           displayName: Terraform Init
           inputs:
             command: 'init'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
             backendType: 'azurerm'
-            backendServiceArm: 'terraform-project'
             backendAzureRmResourceGroupName: 'storage-rg'
             backendAzureRmStorageAccountName: 'deimos01storage'
             backendAzureRmContainerName: 'tfstatefiles'
-            backendAzureRmKey: 'dev-terraform.tfstate'
+            backendAzureRmKey: 'devops-terraform.tfstate'
             allowTelemetryCollection: false
         - task: TerraformCLI@0
           displayName: Terraform Validate
@@ -43,24 +42,3 @@ stages:
             command: 'validate'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
             allowTelemetryCollection: false
-        # - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
-        #   displayName: Terraform Install
-        #   inputs:
-        #     terraformVersion: '0.13.5'
-        # - task: TerraformCLI@0
-        #   displayName: Terraform Init
-        #   inputs:
-        #     command: 'init'
-        #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-        #     backendType: 'azurerm'
-        #     backendAzureRmResourceGroupName: 'storage-rg'
-        #     backendAzureRmStorageAccountName: 'deimos01storage'
-        #     backendAzureRmContainerName: 'tfstatefiles'
-        #     backendAzureRmKey: 'devops-terraform.tfstate'
-        #     allowTelemetryCollection: false
-        # - task: TerraformCLI@0
-        #   displayName: Terraform Validate
-        #   inputs:
-        #     command: 'validate'
-        #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-        #     allowTelemetryCollection: false
