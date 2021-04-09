@@ -35,6 +35,8 @@ stages:
             script: 'echo `terraform version`'
         - task: Bash@3
           displayName: Terraform Init
+          env:
+            TF_STATE_ACCESS_KEY:  $(kv-str-access-key)  
           inputs:
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
             targetType: 'inline'
@@ -42,9 +44,7 @@ stages:
                       -backend-config="storage_account_name=deimos01storage" \
                       -backend-config="container_name=tfstatefiles" \
                       -backend-config="key=terraform.tfstate" \
-                      -backend-config="access_key=$TF_STATE_ACCESS_KEY"
-            env:
-              TF_STATE_ACCESS_KEY:  $(kv-str-access-key)    
+                      -backend-config="access_key=$TF_STATE_ACCESS_KEY"  
         # - task: TerraformCLI@0
         #   displayName: Terraform Init
         #   inputs:
