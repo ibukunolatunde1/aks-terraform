@@ -25,20 +25,25 @@ stages:
           displayName: Terraform Install
           inputs:
             terraformVersion: '0.13.5'
-        - task: TerraformCLI@0
-          displayName: Terraform Init
+        - task: Bash@3
+          displayName: Verify Terraform version
           inputs:
-            command: 'init'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-            backendType: 'azurerm'
-            backendAzureRmResourceGroupName: 'storage-rg'
-            backendAzureRmStorageAccountName: 'deimos01storage'
-            backendAzureRmContainerName: 'tfstatefiles'
-            backendAzureRmKey: 'devops-terraform.tfstate'
-            allowTelemetryCollection: false
-        - task: TerraformCLI@0
-          displayName: Terraform Validate
-          inputs:
-            command: 'validate'
-            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-            allowTelemetryCollection: false
+            targetType: 'inline'
+            script: 'echo `terraform version`'
+        # - task: TerraformCLI@0
+        #   displayName: Terraform Init
+        #   inputs:
+        #     command: 'init'
+        #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        #     backendType: 'azurerm'
+        #     backendAzureRmResourceGroupName: 'storage-rg'
+        #     backendAzureRmStorageAccountName: 'deimos01storage'
+        #     backendAzureRmContainerName: 'tfstatefiles'
+        #     backendAzureRmKey: 'devops-terraform.tfstate'
+        #     allowTelemetryCollection: false
+        # - task: TerraformCLI@0
+        #   displayName: Terraform Validate
+        #   inputs:
+        #     command: 'validate'
+        #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        #     allowTelemetryCollection: false
