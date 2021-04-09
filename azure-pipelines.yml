@@ -81,7 +81,7 @@ stages:
                 inputs:
                   workingDirectory: '$(Pipeline.Workspace)/terraform-manifest-out'
                   targetType: 'inline'
-                  script: terraform plan -var ssh_public_key=$(sshkey.secureFilePath) -var environment=$(DEV_ENVIRONMENT) -out $(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).tfplan
+                  script: terraform plan -var ssh_public_key=$(sshkey.secureFilePath) -var environment=$(DEV_ENVIRONMENT) -out $(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out
               - task: Bash@3
                 displayName: Terraform apply
                 env:
@@ -92,4 +92,4 @@ stages:
                 inputs:
                   workingDirectory: '$(Pipeline.Workspace)/terraform-manifest-out'
                   targetType: 'inline'
-                  script: terraform apply $(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).tfplan
+                  script: terraform apply $(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out
