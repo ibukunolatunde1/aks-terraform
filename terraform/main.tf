@@ -22,7 +22,7 @@ terraform {
     # resource_group_name = "storage-rg"
     # storage_account_name = "deimos01storage"
     # container_name = "tfstatefiles"
-    # key = "terraform.tfstate"
+    # key = "${var.environment}.terraform.tfstate"
   }
 }
 
@@ -98,14 +98,14 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     type = "SystemAssigned"
   }
 
-# Add On Profiles
-  addon_profile {
-    azure_policy {enabled =  true}
-    oms_agent {
-      enabled =  true
-      log_analytics_workspace_id = azurerm_log_analytics_workspace.insights.id
-    }
-  }
+# Add On Profiles - Will remove this also
+  # addon_profile {
+  #   azure_policy {enabled =  true}
+  #   oms_agent {
+  #     enabled =  true
+  #     log_analytics_workspace_id = azurerm_log_analytics_workspace.insights.id
+  #   }
+  # }
 
 # RBAC and Azure AD Integration Block
   role_based_access_control {
@@ -135,13 +135,13 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 }
 
-
-resource "azurerm_log_analytics_workspace" "insights" {
-  name                = "${var.environment}-logs-${random_pet.aksrandom.id}"
-  location            = azurerm_resource_group.aks_rg.location
-  resource_group_name = azurerm_resource_group.aks_rg.name
-  retention_in_days   = 30
-}
+#Need to remove this if switching to Elastic Search
+# resource "azurerm_log_analytics_workspace" "insights" {
+#   name                = "${var.environment}-logs-${random_pet.aksrandom.id}"
+#   location            = azurerm_resource_group.aks_rg.location
+#   resource_group_name = azurerm_resource_group.aks_rg.name
+#   retention_in_days   = 30
+# }
 
 resource "azuread_group" "aks_administrators" {
   name        = "${azurerm_resource_group.aks_rg.name}-cluster-administrators"
