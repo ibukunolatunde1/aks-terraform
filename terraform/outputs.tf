@@ -21,12 +21,12 @@ output "latest_version" {
 }
 
 # Azure AD Group Object Id
-output "azure_ad_group_id" {
-  value = azuread_group.aks_administrators.id
-}
-output "azure_ad_group_objectid" {
-  value = azuread_group.aks_administrators.object_id
-}
+# output "azure_ad_group_id" {
+#   value = azuread_group.aks_administrators.id
+# }
+# output "azure_ad_group_objectid" {
+#   value = azuread_group.aks_administrators.object_id
+# }
 
 
 # Azure AKS Outputs
