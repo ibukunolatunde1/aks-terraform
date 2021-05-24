@@ -6,7 +6,7 @@ variable location {
 
 variable resource_group_name {
   description = "name of the resource group to deploy AKS cluster in"
-  default     = "deimos-aks-new"
+  default     = "deimos-aks"
 }
 
 variable "environment" {
