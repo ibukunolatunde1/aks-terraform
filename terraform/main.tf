@@ -73,7 +73,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     orchestrator_version = data.azurerm_kubernetes_service_versions.current.latest_version
     availability_zones   = [1, 2, 3]
     enable_auto_scaling  = true
-    node_count           = var.node_count
+    # node_count           = var.node_count
     max_count            = var.max_count
     min_count            = var.min_count
     os_disk_size_gb      = var.os_disk_size_gb

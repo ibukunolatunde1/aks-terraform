@@ -23,7 +23,7 @@ variable "ssh_public_key" {
 
 variable "node_count" {
   description = "number of nodes to deploy"
-  default     = 2
+  default     = 1
 }
 
 variable "min_count" {
