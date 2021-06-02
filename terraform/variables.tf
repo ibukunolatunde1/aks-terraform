@@ -43,6 +43,5 @@ variable "os_disk_size_gb" {
 
 variable "vm_size" {
   description = "size/type of VM to use for nodes"
-  default     = "Standard_D2_v2"
+  default     = "Standard_D4s_v3"
 }
-
