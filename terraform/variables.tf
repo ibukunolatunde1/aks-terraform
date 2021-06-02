@@ -6,7 +6,7 @@ variable location {
 
 variable resource_group_name {
   description = "name of the resource group to deploy AKS cluster in"
-  default     = "deimos-aks"
+  default     = "deimos-aks-new"
 }
 
 variable "environment" {
@@ -21,10 +21,10 @@ variable "ssh_public_key" {
   description = "SSH Key for Linux VMs"
 }
 
-variable "node_count" {
-  description = "number of nodes to deploy"
-  default     = 1
-}
+# variable "node_count" {
+#   description = "number of nodes to deploy"
+#   default     = 1
+# }
 
 variable "min_count" {
   description = "min number of nodes to deploy"
