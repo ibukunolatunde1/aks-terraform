@@ -4,9 +4,5 @@ steps:
     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
     script: |
       $test = "${{ parameters.service}}API"
-      $testing = "${{ parameters.service}}API"
-      Write-Host $test
-      Write-Host "This is my variable $($($test))"
-      Write-Host "$(testAPI)"
-      Write-Host "This is my variable $(testAPI)"
-      Write-Host "This is my variable $($testing)"
+      $value = "$( $test )"
+      Write-Host "The value of $($test) is $($value)"
