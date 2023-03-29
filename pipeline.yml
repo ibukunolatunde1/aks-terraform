@@ -7,17 +7,17 @@ stages:
     group: DEV_VARS
   jobs:
   - job: test
-    - steps:
+    steps:
       - template: powershell.yaml
         parameters:
           service: test
 - stage: INT
   displayName: 'Build'
-  - variables:
-    - group: INT_VARS
+  variables:
+    group: INT_VARS
   jobs:
   - job: tesintg
-    - steps:
+    steps:
       - template: powershell.yaml
         parameters:
           service: test
