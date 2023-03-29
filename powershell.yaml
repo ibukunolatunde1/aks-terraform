@@ -5,6 +5,6 @@ steps:
     script: |
       $test = "${{ parameters.service}}API"
       Write-Host $test
-      Write-Host "This is my variable $($test)"
+      Write-Host "This is my variable $($($test))"
       Write-Host "$(testAPI)"
-      Write-Host "This is my variable $($testAPI)"
+      Write-Host "This is my variable $(testAPI)"
