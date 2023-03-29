@@ -1,0 +1,23 @@
+trigger: none
+
+stages:
+- stage: DEV
+  displayName: 'Build'
+  - variables:
+    - group: DEV_VARS
+  jobs:
+  - job: test
+    - steps:
+      - template: powershell.yaml
+        parameters:
+          service: test
+- stage: INT
+  displayName: 'Build'
+  - variables:
+    - group: INT_VARS
+  jobs:
+  - job: tesintg
+    - steps:
+      - template: powershell.yaml
+        parameters:
+          service: test
