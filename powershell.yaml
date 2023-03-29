@@ -1,3 +1,4 @@
+steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
