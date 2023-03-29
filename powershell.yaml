@@ -9,4 +9,4 @@ steps:
       Write-Host "This is my variable $($($test))"
       Write-Host "$(testAPI)"
       Write-Host "This is my variable $(testAPI)"
-      Write-Host "This is my variable $testing"
+      Write-Host "This is my variable $($testing)"
