@@ -3,4 +3,4 @@ steps:
   inputs:
     targetType: 'inline' # 'filePath' | 'inline'. Type. Default: filePath.
     script: |
-      Write-Host "This is my variable $(${{ parameters.service}}API)"
+      Write-Host "This is my variable ${{ parameters.service}}API"
