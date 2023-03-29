@@ -3,8 +3,8 @@ trigger: none
 stages:
 - stage: DEV
   displayName: 'Build'
-  - variables:
-    - group: DEV_VARS
+  variables:
+    group: DEV_VARS
   jobs:
   - job: test
     - steps:
